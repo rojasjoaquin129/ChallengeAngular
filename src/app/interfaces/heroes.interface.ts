@@ -1,0 +1,20 @@
+export interface Heroes{
+    id:number;
+    nombre:string;
+    imagen:string;
+    powerstats:{
+      inteligencia:string;
+      fuerza:string;
+      velocidad:string;
+      durabilidad:string;
+      poder:string;
+      combate:string;
+    };
+    peso:string;
+    altura:string;
+    alias:string;
+    colorOjos:string;
+    ColorCabello:string;
+    lugarTrabajo:string;
+    estado:string;
+}

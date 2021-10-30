@@ -1,0 +1,37 @@
+<app-navbar ></app-navbar>
+
+<div class="container">
+  <div >
+    <h1>Mi Equipo</h1>
+    <div class="card-inner" *ngFor=" let item of listaDatos" >
+      <h4>{{item[0]}} : {{item[1]}} </h4>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="flag" >
+    <div class="col-xs-12 col-sm-6 col-md-3"  style="align-items: center;" *ngFor="let heroe of miLista">
+    <div  class="card"  (click)="detalles(heroe)"  >
+      <div class="imagen" >
+        <a>
+          <img [src]="heroe.image.url"  class="card-img-top" alt="">
+        </a>
+      </div>
+      <div class="card-inner" style="text-align: center;" >
+        <div class="header">
+          <h2>{{heroe.name}}</h2>
+          <h4 class="text-muted"></h4>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="row" *ngIf="!flag">
+      <h1 style="text-align: center;">{{texto}}</h1>
+    </div>
+
+
+</div>
+
+
+
