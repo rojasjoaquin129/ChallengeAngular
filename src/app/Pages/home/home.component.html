@@ -1,16 +1,19 @@
 <app-navbar ></app-navbar>
 
 <div class="container">
-  <div >
+  <div class="equipo" >
     <h1>Mi Equipo</h1>
-    <div class="card-inner" *ngFor=" let item of listaDatos" >
+    <div  *ngFor=" let item of listaDatos" >
       <h4>{{item[0]}} : {{item[1]}} </h4>
     </div>
   </div>
 
   <div class="row" *ngIf="flag" >
     <div class="col-xs-12 col-sm-6 col-md-3"  style="align-items: center;" *ngFor="let heroe of miLista">
-    <div  class="card"  (click)="detalles(heroe)"  >
+    <div  class="card"
+     (click)="detalles(heroe)"
+     data-bs-toggle="modal"
+      data-bs-target="#detallesModal" >
       <div class="imagen" >
         <a>
           <img [src]="heroe.image.url"  class="card-img-top" alt="">
@@ -30,8 +33,36 @@
       <h1 style="text-align: center;">{{texto}}</h1>
     </div>
 
-
+    <div class="modal fade"  id="detallesModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="imagen" >
+              <a>
+                <img [src]=""  class="card-img-top" alt="">
+              </a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+
+
+
+>
+
+
 
 
 

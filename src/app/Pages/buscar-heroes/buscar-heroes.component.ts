@@ -21,6 +21,9 @@ export class BuscarHeroesComponent implements OnInit {
   listaCopiada:any;
   ngOnInit(): void {
     this.miLista=JSON.parse(localStorage.getItem('lista') as string) ;
+    if(!this.miLista){
+      this.miLista=[];
+    }
   }
   filtrarHeroe(){
     if(this.busqueda && this.busqueda.length>3){
@@ -47,30 +50,35 @@ export class BuscarHeroesComponent implements OnInit {
     let malos=0;
     let buenos=0;
     let esBuenoHeroe=false;
-    if(heroe.biography.alignment==="good"){
-      esBuenoHeroe=true;
-    }
-    if(this.miLista.length <= 6){
-      for (let i = 0; i < this.miLista.length; i++) {
-        if(this.miLista[i].biography.alignment==="good"){
-          buenos++;
-        }else{
-          malos++;
-        }
-        if( heroe.id==this.miLista[i].id ){
-          estaEnLaLista=true;
-        }
+    console.log(this.miLista)
+    if(this.miLista){
+      if(heroe.biography.alignment==="good"){
+        esBuenoHeroe=true;
       }
-      if(esBuenoHeroe && buenos<3 && !estaEnLaLista){
-        retorno=false;
-      }else if( !esBuenoHeroe && malos<3 && !estaEnLaLista){
-        retorno=false;
+      if(this.miLista.length <= 6){
+        for (let i = 0; i < this.miLista.length; i++) {
+          if(this.miLista[i].biography.alignment==="good"){
+            buenos++;
+          }else{
+            malos++;
+          }
+          if( heroe.id==this.miLista[i].id ){
+            estaEnLaLista=true;
+          }
+        }
+        if(esBuenoHeroe && buenos<3 && !estaEnLaLista){
+          retorno=false;
+        }else if( !esBuenoHeroe && malos<3 && !estaEnLaLista){
+          retorno=false;
+        }
+        console.log(buenos);
+        console.log(malos);
+
       }
-      console.log(buenos);
-      console.log(malos);
-
+    }else{
+      console.log(this.miLista);
+      retorno=false;
     }
-
     return retorno;
   }
 
@@ -107,11 +115,13 @@ export class BuscarHeroesComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         if(!this.verificarLista(heroe)){
-          Swal.fire('Agregado', '', 'success');
-          this.miLista.push(heroe);
-          console.log(heroe)
-          localStorage.removeItem('lista');
-          localStorage.setItem('lista',JSON.stringify(this.miLista));
+          Swal.fire('Agregado', '', 'success').then(()=>{
+            this.miLista.push(heroe);
+            console.log(heroe);
+            localStorage.setItem('lista',JSON.stringify(this.miLista));
+          });
+
+
         }else{
           Swal.fire('No se pudo Agregar', 'el super heroe q quiere o ya lo tiene en la lista o ya lleno el cupo', 'error');
         }

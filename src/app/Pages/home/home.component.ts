@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   texto="usted no tiene heroes seleccionados para su Equipo";
   flag=false;
   listaDatos:any[]=[];
-
+  heroeSeleccionado:any=null;
 
   constructor() { }
 
@@ -54,6 +54,9 @@ export class HomeComponent implements OnInit {
 
     comparar ( a:any, b:any ){ return a[1] - b[1]; }
   detalles(heroe:any){
+    this.heroeSeleccionado=heroe;
+
+
     Swal.fire({
       title: 'Detalles',
       text: "Peso :" + heroe.appearance.weight[1]  +
@@ -68,7 +71,7 @@ export class HomeComponent implements OnInit {
       customClass:{
         cancelButton: 'btn btn-danger'
       },
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'si, quiero borrar este heroe!',
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {

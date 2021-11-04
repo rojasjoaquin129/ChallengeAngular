@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private jwt:AuthService,
     private formB:FormBuilder,
-    private router:Router
+    private router:Router,
+    private authService:AuthService,
     ) {
         this.loginFrom=this.formB.group({
           email:this.email,
@@ -28,13 +29,17 @@ export class LoginComponent implements OnInit {
 
   ingresar(){
     const{email,password}=this.loginFrom.value;
-    if(email==='challenge@alkemy.org' && password==='angular'){
+    this.authService.LoginDos(email,password).then((usuario)=>{
+      console.log(usuario.user?.multiFactor);
+      this.authService.estaLogeado=true;
       localStorage.setItem('usuario',email);
       this.router.navigate(['home']);
-    } else{
-      this.mensajeError('Usted No tiene validacion');
-      this.loginFrom.reset();
-    }
+    }).catch(error=>{
+      if(error.code==='auth/wrong-password'){
+        this.mensajeError('El usuario no esta Autenticado ni en la base de datos ');
+        this.loginFrom.reset();
+      }
+    });
   }
 
   ngOnInit(): void {

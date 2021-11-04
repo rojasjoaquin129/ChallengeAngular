@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PagesModule } from './Pages/pages.module';
 import { ComponentsModule } from './Components/components.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ComponentsModule } from './Components/components.module';
     AppRoutingModule,
     HttpClientModule,
     PagesModule,
-    ComponentsModule
+    ComponentsModule,
+    FirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
